@@ -8,7 +8,7 @@ Sistema de gestión de reservas de hotel desarrollado como trabajo práctico uni
 |--------|----------|
 |        |          |
 |        |          |
-|        |          |
+|Lucas   |Ibañez    |
 |        |          |
 |        |          |
 
