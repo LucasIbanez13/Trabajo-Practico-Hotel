@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { getCategories, createCategory } from "../controllers/categories.controller.js";
+import { getReservas} from "../controllers/reservas.controller.js";
 
 const router = Router();
 
-router.get("/reservas", getCategories);
+router.get("/reservas", getReservas);
 
 
 

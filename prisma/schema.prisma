@@ -7,44 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Category {
-  id       Int       @id @default(autoincrement())
-  name     String    @unique
-  products Product[]
-}
-
-model Product {
-  id         Int         @id @default(autoincrement())
-  name       String      @unique
-  quantity   Int         @default(0)
-  price      Int         @default(999)
-  createdAt  DateTime    @default(now())
-  category   Category    @relation(fields: [categoryId], references: [id])
-  categoryId Int
-  orderItems OrderItem[]
-}
-
-model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  createdAt DateTime @default(now())
-  orders    Order[]
-}
-
-model Order {
-  id         Int         @id @default(autoincrement())
-  createdAt  DateTime    @default(now())
-  user       User        @relation(fields: [userId], references: [id])
-  userId     Int
-  orderItems OrderItem[]
-}
-
-model OrderItem {
-  id        Int     @id @default(autoincrement())
-  quantity  Int     @default(1)
-  order     Order   @relation(fields: [orderId], references: [id])
-  orderId   Int
-  product   Product @relation(fields: [productId], references: [id])
-  productId Int
+model Reserva {
+  id           Int      @id @default(autoincrement())
+  nombre       String
+  apellido     String
+  dni          String   @unique
+  telefono     String
+  email        String
+  habitacion   Int
+  fechaIngreso DateTime
+  fechaSalida  DateTime
+  cantPersonas Int
+  estado       String   @default("pendiente")
+  createdAt    DateTime @default(now())
 }
