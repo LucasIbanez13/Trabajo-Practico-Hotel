@@ -4,13 +4,13 @@ Sistema de gestión de reservas de hotel desarrollado como trabajo práctico uni
 
 ## 👥 Integrantes
 
-| Nombre | Apellido |
-|--------|----------|
-|        |          |
-|        |          |
-|Lucas   |Ibañez    |
-|        |          |
-|        |          |
+| Nombre  | Apellido |
+|---------|----------|
+|Victoria |Peralta   |
+|David    |Konevky   |
+|Lucas    |Ibañez    |
+|         |          |
+|         |          |
 
 ---
 
