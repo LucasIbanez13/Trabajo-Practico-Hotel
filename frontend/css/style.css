@@ -1,6 +1,19 @@
 :root {
     --border: oklch(0% 0 0 / 0.12);
     --shadow: 0px 4px 12px rgba(0, 0, 0, 0.04);
+    
+    --color-text-primary: oklch(27.4% 0 0);
+    --color-text-secondary: oklch(30% 0 0);
+    --color-text-muted: oklch(55% 0 0);
+
+    --color-surface: oklch(100% 0 0);
+    --color-surface-alt: oklch(97% 0 0);
+    --color-success-bg: oklch(92.5% 0.084 155.995);
+    --color-success-text: oklch(36.6% 0.129 154.63);
+    --color-danger-bg: oklch(88.5% 0.062 18.334);
+    --color-danger-text: oklch(44.4% 0.177 26.899);
+    --color-warning-bg: oklch(94% 0.08 85);
+    --color-warning-text: oklch(40% 0.12 85);
 }
 
 * {
@@ -21,7 +34,7 @@
     width: 100%;
     overflow-y: hidden;
     border-radius: 0.375rem;
-    background-color: oklch(100% 0 0);
+    background-color: var(--color-surface);
     border: 1px solid var(--border);
     box-shadow: var(--shadow);
 }
@@ -40,7 +53,7 @@
 
 .reservas-table__head .reservas-table__row--header {
     border-bottom: 1px solid oklch(0% 0 0 / 0.15);
-    background-color: oklch(97% 0 0);
+    background-color: var(--color-surface-alt);
 }
 
 .reservas-table__heading {
@@ -48,7 +61,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: oklch(30% 0 0);
+    color: var(--color-text-secondary);
 }
 
 .reservas-table__heading:last-child,
@@ -75,7 +88,7 @@
 
 .reservas-table__cell {
     font-size: 0.75rem;
-    color: oklch(27.4% 0 0);
+    color: var(--color-text-primary);
     border-bottom: 1px solid var(--border);
 }
 
@@ -88,19 +101,19 @@
     font-weight: 600;
 }
 
-.reservas-table__cell--activa span {
-    background-color: oklch(92.5% 0.084 155.995);
-    color: oklch(36.6% 0.129 154.63);
+.reservas-table__cell--activa {
+    background-color: var(--color-success-bg);
+    color: var(--color-success-text);
 }
 
-.reservas-table__cell--cancelada span {
-    background-color: oklch(88.5% 0.062 18.334);
-    color: oklch(44.4% 0.177 26.899);
+.reservas-table__cell--cancelada {
+    background-color: var(--color-danger-bg);
+    color: var(--color-danger-text);
 }
 
-.reservas-table__cell--pendiente span {
-    background-color: oklch(94% 0.08 85);
-    color: oklch(40% 0.12 85);
+.reservas-table__cell--pendiente {
+    background-color: var(--color-warning-bg);
+    color: var(--color-warning-text);
 }
 
 /* ── Acciones ── */
@@ -130,18 +143,18 @@
 
 .btn-action--delete {
     background-color: oklch(97% 0.013 17.38);
-    color: oklch(44.4% 0.177 26.899);
+    color: var(--color-danger-text);
 }
 
 .btn-action--delete:hover {
-    background-color: oklch(88.5% 0.062 18.334);
+    background-color: var(--color-danger-bg);
 }
 
 /* ── Empty state ── */
 .reservas-table__empty {
     text-align: center;
     padding: 2.5rem 1rem;
-    color: oklch(55% 0 0);
+    color: var(--color-text-muted);
     font-size: 0.875rem;
 }
 
@@ -164,11 +177,11 @@
 }
 
 .toast--success {
-    background-color: oklch(92.5% 0.084 155.995);
+    background-color: var(--color-success-bg);
     color: oklch(28% 0.1 154.63);
 }
 
 .toast--error {
-    background-color: oklch(88.5% 0.062 18.334);
+    background-color: var(--color-danger-bg);
     color: oklch(35% 0.15 26.899);
 }
