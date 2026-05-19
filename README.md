@@ -9,7 +9,7 @@ Sistema de gestión de reservas de hotel desarrollado como trabajo práctico uni
 |Victoria |Peralta   |
 |David    |Konevky   |
 |Lucas    |Ibañez    |
-|         |          |
+|Lucila   |Pastrana  |
 |Elias    |Cuéllar   |
 
 ---
