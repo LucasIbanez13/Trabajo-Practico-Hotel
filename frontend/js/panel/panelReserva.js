@@ -15,11 +15,11 @@ export async function initPanel() {
       <td class="reservas-table__cell">${reserva.telefono}</td>
       <td class="reservas-table__cell">${reserva.email}</td>
       <td class="reservas-table__cell">${reserva.habitacion}</td>
-      <td class="reservas-table__cell">${reserva.fechaIngreso}</td>
-      <td class="reservas-table__cell">${reserva.fechaSalida}</td>
+      <td class="reservas-table__cell">${new Date(reserva.fechaIngreso).toLocaleDateString()}</td>
+      <td class="reservas-table__cell">${new Date(reserva.fechaSalida).toLocaleDateString()}</td>
       <td class="reservas-table__cell">${reserva.cantPersonas}</td>
       <td class="reservas-table__cell reservas-table__cell--estado">
-        <span>${reserva.estado}</span>
+        <span class="reservas-table__cell--${reserva.estado}">${reserva.estado}</span>
       </td>
       <td class="reservas-table__cell">
         <div class="reservas-table__actions">
