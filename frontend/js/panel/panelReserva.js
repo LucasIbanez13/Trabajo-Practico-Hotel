@@ -1,7 +1,6 @@
 import { obtenerReservas } from "../api/reservaApi.js";
 
-export async function initPanel() {
-  const reservas = await obtenerReservas();
+function actualizarReserva(reservas) {
   const tbody = document.getElementById("tabla-reservas");
   tbody.innerHTML = "";
 
@@ -30,4 +29,9 @@ export async function initPanel() {
     `;
     tbody.appendChild(tr);
   });
+}
+
+export async function initPanel() {
+  const reservas = await obtenerReservas();
+  actualizarReserva(reservas);
 }
