@@ -5,6 +5,13 @@
     font-family: 'Inter', sans-serif;
 }
 
+#panel {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0.5rem;
+}
+
 .table-container {
     width: 100%;
     overflow-y: hidden;
@@ -19,9 +26,10 @@
     width: 100%;
 }
 
-.reservas-table__head, .reservas-table__row {
+.reservas-table__heading,
+.reservas-table__cell {
     border-right: 1px solid var(--border);
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 0.75rem;
     text-align: left;
 }
 
@@ -64,7 +72,6 @@
     font-size: 0.75rem;
     color: oklch(27.4% 0 0);
     border-bottom: 1px solid var(--border);
-    padding: 0.5rem 0.75rem;
 }
 
 /* ── Estado badge ── */
