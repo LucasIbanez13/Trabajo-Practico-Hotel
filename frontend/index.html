@@ -8,27 +8,58 @@
 
     <link rel="stylesheet" href="./css/style.css">
 </head>
-
 <body>
-
-    <header>
-        <h1>Panel de Reservas</h1>
+    <header class="header">
+        <h1 class="header__title">Panel de Reservas</h1>
     </header>
-
-    <main>
-
-        <section id="form-section">
-
+    <main class="main">
+        <section class="form-section" id="form-section">
         </section>
-
-        <section id="panel">
-
+        <section class="panel" id="panel">
+            <div class="table-container">
+                <table class="reservas-table">
+                    <thead class="reservas-table__head">
+                        <tr class="reservas-table__row reservas-table__row--header">
+                            <th class="reservas-table__heading">Nombre</th>
+                            <th class="reservas-table__heading">Apellido</th>
+                            <th class="reservas-table__heading">DNI</th>
+                            <th class="reservas-table__heading">Teléfono</th>
+                            <th class="reservas-table__heading">Email</th>
+                            <th class="reservas-table__heading">Habitación</th>
+                            <th class="reservas-table__heading">Fecha de Ingreso</th>
+                            <th class="reservas-table__heading">Fecha de Salida</th>
+                            <th class="reservas-table__heading">Cant. Personas</th>
+                            <th class="reservas-table__heading">Estado</th>
+                            <th class="reservas-table__heading">Acciones</th>
+                        </tr>
+                        <tr class="reservas-table__row">
+                            <td class="reservas-table__cell">Juan</td>
+                            <td class="reservas-table__cell">Pérez</td>
+                            <td class="reservas-table__cell">38123456</td>
+                            <td class="reservas-table__cell">3814123456</td>
+                            <td class="reservas-table__cell">juan.perez@gmail.com</td>
+                            <td class="reservas-table__cell">101</td>
+                            <td class="reservas-table__cell">2025-06-01</td>
+                            <td class="reservas-table__cell">2025-06-05</td>
+                            <td class="reservas-table__cell">2</td>
+                            <td class="reservas-table__cell reservas-table__cell--estado reservas-table__cell--activa">
+                                <span>Activa</span>
+                            </td>
+                            <td class="reservas-table__cell">
+                                <div class="reservas-table__actions">
+                                    <button class="btn-action btn-action--edit" id="edit-btn-1">Editar</button>
+                                    <button class="btn-action btn-action--delete" id="delete-btn-1">Eliminar</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody class="reservas-table__body" id="tabla-reservas">
+                        <!-- filas generadas dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
         </section>
-
     </main>
-
-    <script type="module" src="./js/app.js"></script>
-
 </body>
 
 </html>
