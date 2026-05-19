@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Reservas</title>
-
     <link rel="stylesheet" href="./css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <header class="header">
         <h1 class="header__title">Panel de Reservas</h1>
@@ -27,8 +26,8 @@
                             <th class="reservas-table__heading">Teléfono</th>
                             <th class="reservas-table__heading">Email</th>
                             <th class="reservas-table__heading">Habitación</th>
-                            <th class="reservas-table__heading">Ingreso</th>
-                            <th class="reservas-table__heading">Salida</th>
+                            <th class="reservas-table__heading">Fecha de Ingreso</th>
+                            <th class="reservas-table__heading">Fecha de Salida</th>
                             <th class="reservas-table__heading">Cant. Personas</th>
                             <th class="reservas-table__heading">Estado</th>
                             <th class="reservas-table__heading">Acciones</th>
@@ -36,31 +35,12 @@
                     </thead>
                     <tbody class="reservas-table__body" id="tabla-reservas">
                         
-                        <tr class="reservas-table__row">
-                            <td class="reservas-table__cell">Juan</td>
-                            <td class="reservas-table__cell">Pérez</td>
-                            <td class="reservas-table__cell">38123456</td>
-                            <td class="reservas-table__cell">3814123456</td>
-                            <td class="reservas-table__cell">juan.perez@gmail.com</td>
-                            <td class="reservas-table__cell">101</td>
-                            <td class="reservas-table__cell">2025-06-01</td>
-                            <td class="reservas-table__cell">2025-06-05</td>
-                            <td class="reservas-table__cell">2</td>
-                            <td class="reservas-table__cell reservas-table__cell--estado reservas-table__cell--activa">
-                                <span>Activa</span>
-                            </td>
-                            <td class="reservas-table__cell">
-                                <div class="reservas-table__actions">
-                                    <button class="btn-action btn-action--edit" id="edit-btn-1">Editar</button>
-                                    <button class="btn-action btn-action--delete" id="delete-btn-1">Eliminar</button>
-                                </div>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
         </section>
     </main>
+    <script type="module" src="./js/app.js"></script>
 </body>
 
 </html>
