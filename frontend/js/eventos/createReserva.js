@@ -1,4 +1,4 @@
-import { crearProducto } from "../api/reservaApi.js";
+import { crearReserva } from "../api/reservaApi.js";
 
 export function initFormCrear() {
   const form = document.getElementById("form-crear");
@@ -21,11 +21,11 @@ export function initFormCrear() {
       return;
     }
 
-    await crearProducto({
+    await crearReserva({
       nombre, apellido, dni, telefono, email,
       habitacion: Number(habitacion),
-      fechaIngreso: new Date(fechaIngreso),
-      fechaSalida: new Date(fechaSalida),
+      fechaIngreso: new Date(fechaIngreso).toISOString(),
+      fechaSalida: new Date(fechaSalida).toISOString(),
       cantPersonas: Number(cantPersonas)
     });
 

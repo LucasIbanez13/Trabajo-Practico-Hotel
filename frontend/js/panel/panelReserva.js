@@ -31,7 +31,27 @@ function actualizarReserva(reservas) {
   });
 }
 
+function initBotonNuevaReserva() {
+  const btn = document.getElementById("btn-nueva-reserva");
+  const modal = document.getElementById("modal-crear-reserva");
+  const btnCerrar = document.getElementById("btn-cerrar-modal");
+  const btnCancelar = document.getElementById("btn-cancelar");
+
+  btn?.addEventListener("click", () => {
+    modal.style.display = "flex";
+  });
+
+  btnCerrar?.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  btnCancelar?.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+}
+
 export async function initPanel() {
   const reservas = await obtenerReservas();
   actualizarReserva(reservas);
+  initBotonNuevaReserva();
 }
