@@ -18,5 +18,11 @@ export async function crearReserva(data) {
 export async function editarProducto() {
 }
 
-export async function eliminarProducto() {
+export async function eliminarReserva(id) {
+  const res = await fetch(`http://localhost:3000/api/reservas/${id}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) {
+    throw new Error("Error al eliminar reserva");
+  }
 }
