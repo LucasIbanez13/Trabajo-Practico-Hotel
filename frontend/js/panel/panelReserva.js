@@ -1,29 +1,22 @@
 import { obtenerReservas, eliminarReserva } from "../api/reservaApi.js";
-
+import { abrirModalEditar } from "../eventos/editarReserva.js";
 
 function actualizarReserva(reservas) {
 
   const tbody = document.getElementById("tabla-reservas");
-
   tbody.innerHTML = "";
 
   reservas.forEach(reserva => {
 
     const tr = document.createElement("tr");
-
     tr.classList.add("reservas-table__row");
 
     tr.innerHTML = `
       <td class="reservas-table__cell">${reserva.nombre}</td>
-
       <td class="reservas-table__cell">${reserva.apellido}</td>
-
       <td class="reservas-table__cell">${reserva.dni}</td>
-
       <td class="reservas-table__cell">${reserva.telefono}</td>
-
       <td class="reservas-table__cell">${reserva.email}</td>
-
       <td class="reservas-table__cell">${reserva.habitacion}</td>
 
       <td class="reservas-table__cell">
@@ -43,11 +36,11 @@ function actualizarReserva(reservas) {
       </td>
 
       <td class="reservas-table__cell">
-
         <div class="reservas-table__actions">
 
           <button 
-            class="btn-action btn-action--edit">
+            class="btn-action btn-action--edit"
+            data-id="${reserva.id}">
             Editar
           </button>
 
@@ -58,17 +51,22 @@ function actualizarReserva(reservas) {
           </button>
 
         </div>
-
       </td>
     `;
 
     tbody.appendChild(tr);
 
+    // 🔧 EDITAR (CORREGIDO)
+    const btnEditar = tr.querySelector(".btn-action--edit");
+
+    btnEditar.addEventListener("click", () => {
+      abrirModalEditar(reserva);
+    });
+
   });
 
-  // IMPORTANTE
+  // eliminar
   initBotonesEliminar();
-
 }
 
 
@@ -83,25 +81,19 @@ function initBotonesEliminar() {
       const id = boton.dataset.id;
 
       const confirmar = confirm("¿Eliminar reserva?");
-
       if (!confirmar) return;
 
       try {
-
         await eliminarReserva(id);
 
         alert("Reserva eliminada correctamente");
 
         const reservasActualizadas = await obtenerReservas();
-
         actualizarReserva(reservasActualizadas);
 
       } catch (error) {
-
         console.error(error);
-
         alert("Error al eliminar reserva");
-
       }
 
     });
@@ -114,11 +106,9 @@ function initBotonesEliminar() {
 function initBotonNuevaReserva() {
 
   const btn = document.getElementById("btn-nueva-reserva");
-
   const modal = document.getElementById("modal-crear-reserva");
 
   const btnCerrar = document.getElementById("btn-cerrar-modal");
-
   const btnCancelar = document.getElementById("btn-cancelar");
 
   btn?.addEventListener("click", () => {
@@ -139,7 +129,6 @@ function initBotonNuevaReserva() {
 export async function initPanel() {
 
   try {
-
     const reservas = await obtenerReservas();
 
     actualizarReserva(reservas);
@@ -147,9 +136,6 @@ export async function initPanel() {
     initBotonNuevaReserva();
 
   } catch (error) {
-
     console.error(error);
-
   }
-
 }

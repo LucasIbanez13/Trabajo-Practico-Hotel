@@ -17,7 +17,6 @@ export const updateReserva = async (req, res, next) => {
       estado,
     } = req.body;
 
-  
     if (!id || isNaN(id)) {
       return res.status(400).json({
         message: "ID inválido",
@@ -30,11 +29,9 @@ export const updateReserva = async (req, res, next) => {
       !dni ||
       !telefono ||
       !email ||
-      !habitacion ||
+      !estado ||
       !fechaIngreso ||
-      !fechaSalida ||
-      !cantPersonas ||
-      !estado
+      !fechaSalida
     ) {
       return res.status(400).json({
         message: "Todos los campos son obligatorios",
@@ -51,12 +48,36 @@ export const updateReserva = async (req, res, next) => {
     ];
 
     const hayCamposVacios = camposString.some(
-      (campo) => campo.trim() === ""
+      (campo) => typeof campo === "string" && campo.trim() === ""
     );
 
     if (hayCamposVacios) {
       return res.status(400).json({
         message: "Los campos no pueden estar vacíos",
+      });
+    }
+
+    const dniNum = Number(dni);
+    const habitacionNum = Number(habitacion);
+    const cantPersonasNum = Number(cantPersonas);
+
+    if (
+      isNaN(dniNum) ||
+      isNaN(habitacionNum) ||
+      isNaN(cantPersonasNum)
+    ) {
+      return res.status(400).json({
+        message: "DNI, habitación y cantidad de personas deben ser numéricos",
+      });
+    }
+
+    if (
+      dniNum <= 0 ||
+      habitacionNum <= 0 ||
+      cantPersonasNum <= 0
+    ) {
+      return res.status(400).json({
+        message: "Los valores numéricos deben ser mayores a 0",
       });
     }
 
@@ -79,18 +100,19 @@ export const updateReserva = async (req, res, next) => {
       data: {
         nombre,
         apellido,
-        dni,
+        dni: String(dniNum),
         telefono,
         email,
-        habitacion,
+        habitacion: habitacionNum,
         fechaIngreso: new Date(fechaIngreso),
         fechaSalida: new Date(fechaSalida),
-        cantPersonas,
+        cantPersonas: cantPersonasNum,
         estado,
       },
     });
 
     res.status(200).json(reservaActualizada);
+
   } catch (error) {
     next(error);
   }

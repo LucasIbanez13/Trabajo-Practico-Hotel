@@ -26,3 +26,21 @@ export async function eliminarReserva(id) {
     throw new Error("Error al eliminar reserva");
   }
 }
+
+export async function editarReserva(id, data) {
+  const res = await fetch(`http://localhost:3000/api/reservas/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  const result = await res.json();
+
+  if (!res.ok) {
+    throw new Error(result.message || "Error al actualizar la reserva");
+  }
+
+  return result;
+}
