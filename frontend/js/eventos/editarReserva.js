@@ -2,16 +2,13 @@ import { editarReserva } from "../api/reservaApi.js";
 
 let reservaEditandoId = null;
 
-// 🔒 VALIDACIONES
 const soloLetras = (valor) => /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(valor);
 const soloNumeros = (valor) => /^\d+$/.test(valor);
 const emailValido = (valor) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
 
-// 🔥 LIMPIEZA
 const limpiarNumeros = (valor, maxLength) =>
   valor.replace(/\D/g, "").slice(0, maxLength);
 
-// 🔥 MOSTRAR ERROR
 function setError(id, mensaje) {
   const input = document.getElementById(id);
   let error = input.nextElementSibling;
@@ -28,7 +25,6 @@ function setError(id, mensaje) {
   input.style.border = "1px solid red";
 }
 
-// 🔥 LIMPIAR ERROR
 function clearError(id) {
   const input = document.getElementById(id);
   let error = input.nextElementSibling;
@@ -40,7 +36,6 @@ function clearError(id) {
   input.style.border = "";
 }
 
-// 🔥 VALIDAR TODO
 function validarFormulario() {
   let valido = true;
 
@@ -54,7 +49,6 @@ function validarFormulario() {
   const fechaIngreso = document.getElementById("edit-fechaIngreso").value;
   const fechaSalida = document.getElementById("edit-fechaSalida").value;
 
-  // 🔹 NOMBRE
   if (!nombre) {
     setError("edit-nombre", "El nombre es obligatorio");
     valido = false;
@@ -63,7 +57,6 @@ function validarFormulario() {
     valido = false;
   } else clearError("edit-nombre");
 
-  // 🔹 APELLIDO
   if (!apellido) {
     setError("edit-apellido", "El apellido es obligatorio");
     valido = false;
@@ -72,7 +65,6 @@ function validarFormulario() {
     valido = false;
   } else clearError("edit-apellido");
 
-  // 🔹 DNI
   if (!dni) {
     setError("edit-dni", "El DNI es obligatorio");
     valido = false;
@@ -84,7 +76,6 @@ function validarFormulario() {
     valido = false;
   } else clearError("edit-dni");
 
-  // 🔹 TEL
   if (!telefono) {
     setError("edit-telefono", "Obligatorio");
     valido = false;
@@ -93,7 +84,6 @@ function validarFormulario() {
     valido = false;
   } else clearError("edit-telefono");
 
-  // 🔹 EMAIL
   if (!email) {
     setError("edit-email", "Obligatorio");
     valido = false;
@@ -102,19 +92,16 @@ function validarFormulario() {
     valido = false;
   } else clearError("edit-email");
 
-  // 🔹 HABITACION
   if (!habitacion || !soloNumeros(habitacion) || Number(habitacion) <= 0) {
     setError("edit-habitacion", "Inválida");
     valido = false;
   } else clearError("edit-habitacion");
 
-  // 🔹 PERSONAS
   if (!cantPersonas || !soloNumeros(cantPersonas) || Number(cantPersonas) <= 0) {
     setError("edit-cantPersonas", "Inválida");
     valido = false;
   } else clearError("edit-cantPersonas");
 
-  // 🔹 FECHAS
   if (!fechaIngreso || !fechaSalida) {
     alert("Fechas obligatorias");
     return false;
@@ -128,9 +115,7 @@ function validarFormulario() {
   return valido;
 }
 
-// =======================
-// ABRIR MODAL
-// =======================
+
 export function abrirModalEditar(reserva) {
   reservaEditandoId = reserva.id;
 
@@ -149,12 +134,10 @@ export function abrirModalEditar(reserva) {
   document.getElementById("edit-fechaSalida").value =
     reserva.fechaSalida ? reserva.fechaSalida.slice(0, 16) : "";
 
-  document.getElementById("modal-editar").style.display = "block";
+  document.getElementById("modal-editar").style.display = "flex";
 }
 
-// =======================
-// INIT
-// =======================
+
 export function initEditarReserva() {
   const form = document.getElementById("form-editar");
 

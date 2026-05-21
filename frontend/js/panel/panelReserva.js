@@ -56,7 +56,6 @@ function actualizarReserva(reservas) {
 
     tbody.appendChild(tr);
 
-    // 🔧 EDITAR (CORREGIDO)
     const btnEditar = tr.querySelector(".btn-action--edit");
 
     btnEditar.addEventListener("click", () => {
