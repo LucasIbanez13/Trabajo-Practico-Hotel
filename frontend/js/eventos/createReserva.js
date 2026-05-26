@@ -1,4 +1,5 @@
-import { crearReserva } from "../api/reservaApi.js";
+import { crearReserva, obtenerReservas } from "../api/reservaApi.js";
+import { actualizarReserva } from "../panel/panelReserva.js";
 
 const validar = (datos) => {
   const { nombre, apellido, dni, telefono, email, habitacion, fechaIngreso, fechaSalida, cantPersonas } = datos;

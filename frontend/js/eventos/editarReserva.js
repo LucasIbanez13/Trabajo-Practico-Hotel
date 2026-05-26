@@ -1,4 +1,5 @@
-import { editarReserva } from "../api/reservaApi.js";
+import { editarReserva, obtenerReservas } from "../api/reservaApi.js";
+import { actualizarReserva } from "../panel/panelReserva.js";
 
 let reservaEditandoId = null;
 
