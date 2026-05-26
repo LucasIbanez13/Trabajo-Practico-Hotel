@@ -1,5 +1,4 @@
 import { eliminarReserva, obtenerReservas } from "../api/reservaApi.js";
-
 import { actualizarReserva } from "../panel/panelReserva.js";
 
 export async function handleEliminarReserva(id) {
