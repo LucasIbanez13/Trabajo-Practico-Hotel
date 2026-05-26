@@ -1,27 +1,84 @@
 import { crearReserva } from "../api/reservaApi.js";
 
-const validar = (datos) => {
-  const { nombre, apellido, dni, telefono, email, habitacion, fechaIngreso, fechaSalida, cantPersonas } = datos;
+function setError(id, mensaje) {
+  const input = document.getElementById(id);
+  let error = input.nextElementSibling;
 
-  if (!nombre || !apellido || !dni || !telefono || !email || !habitacion || !fechaIngreso || !fechaSalida || !cantPersonas) {
-    return "Completá todos los campos.";
+  if (!error || !error.classList.contains("error-msg")) {
+    error = document.createElement("div");
+    error.className = "error-msg";
+    error.style.color = "red";
+    error.style.fontSize = "12px";
+    input.insertAdjacentElement("afterend", error);
   }
 
-  if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre)) return "El nombre solo puede contener letras.";
-  if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(apellido)) return "El apellido solo puede contener letras.";
-  if (!/^\d{7,8}$/.test(dni)) return "El DNI debe tener 7 u 8 números sin puntos ni espacios.";
-  if (!/^\d{7,15}$/.test(telefono)) return "El teléfono debe tener entre 7 y 15 números.";
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "El email no es válido.";
-  if (Number(habitacion) < 1) return "El número de habitación debe ser mayor a 0.";
-  if (Number(cantPersonas) < 1) return "La cantidad de personas debe ser al menos 1.";
+  error.textContent = mensaje;
+  input.style.border = "1px solid red";
+}
 
-  const ingreso = new Date(fechaIngreso);
-  const salida = new Date(fechaSalida);
-  if (isNaN(ingreso.getTime()) || isNaN(salida.getTime())) return "Las fechas no son válidas.";
-  if (salida <= ingreso) return "La fecha de salida debe ser posterior a la de ingreso.";
+function clearError(id) {
+  const input = document.getElementById(id);
+  let error = input.nextElementSibling;
 
-  return null;
-};
+  if (error && error.classList.contains("error-msg")) {
+    error.remove();
+  }
+
+  input.style.border = "";
+}
+
+function validar(datos) {
+  let valido = true;
+
+  const { nombre, apellido, dni, telefono, email, habitacion, fechaIngreso, fechaSalida, cantPersonas } = datos;
+
+  if (!nombre || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre)) {
+    setError("nombre", !nombre ? "El nombre es obligatorio" : "Solo letras");
+    valido = false;
+  } else clearError("nombre");
+
+  if (!apellido || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(apellido)) {
+    setError("apellido", !apellido ? "El apellido es obligatorio" : "Solo letras");
+    valido = false;
+  } else clearError("apellido");
+
+  if (!dni || !/^\d{7,8}$/.test(dni)) {
+    setError("dni", !dni ? "El DNI es obligatorio" : "El DNI debe tener 7 u 8 números");
+    valido = false;
+  } else clearError("dni");
+
+  if (!telefono || !/^\d{7,15}$/.test(telefono)) {
+    setError("telefono", !telefono ? "El teléfono es obligatorio" : "Entre 7 y 15 números");
+    valido = false;
+  } else clearError("telefono");
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    setError("email", !email ? "El email es obligatorio" : "Email inválido");
+    valido = false;
+  } else clearError("email");
+
+  if (!habitacion || Number(habitacion) < 1) {
+    setError("habitacion", "El número de habitación debe ser mayor a 0");
+    valido = false;
+  } else clearError("habitacion");
+
+  if (!cantPersonas || Number(cantPersonas) < 1) {
+    setError("cantPersonas", "La cantidad de personas debe ser al menos 1");
+    valido = false;
+  } else clearError("cantPersonas");
+
+  if (!fechaIngreso || !fechaSalida) {
+    alert("Las fechas son obligatorias");
+    return false;
+  }
+
+  if (new Date(fechaSalida) <= new Date(fechaIngreso)) {
+    alert("La fecha de salida debe ser posterior a la de ingreso");
+    return false;
+  }
+
+  return valido;
+}
 
 export function initFormCrear() {
   const form = document.getElementById("form-crear");
@@ -41,11 +98,8 @@ export function initFormCrear() {
       cantPersonas: document.getElementById("cantPersonas").value,
     };
 
-    const error = validar(datos);
-    if (error) {
-      alert(error);
-      return;
-    }
+    const esValido = validar(datos);
+    if (!esValido) return;
 
     try {
       await crearReserva({
@@ -56,8 +110,9 @@ export function initFormCrear() {
         cantPersonas: Number(datos.cantPersonas),
       });
 
-      alert("Reserva creada!");
+      alert("Reserva creada correctamente!");
       form.reset();
+
     } catch (err) {
       alert(err.message);
     }
