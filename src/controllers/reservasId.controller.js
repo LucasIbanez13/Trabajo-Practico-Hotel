@@ -1,36 +1,13 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../db.js";
+import { NotFoundError } from "../errors/AppError.js";
 
 export const getObtenerID = async (req, res, next) => {
-
-    const { id } = req.params;
-
-    try {
-
-        const reserva = await prisma.reserva.findUnique({
-            where: {
-                id: Number(id)
-            }
-        });
-
-        // Verificar si existe
-        if (!reserva) {
-            return res.status(404).json({
-                mensaje: "Reserva no encontrada"
-            });
-        }
-
-        res.json(reserva);
-
-    } catch (error) {
-
-        console.log(error);
-
-        res.status(500).json({
-            mensaje: "Error al obtener la reserva"
-        });
-
-    }
-
-}
+  const { id } = req.params;
+  try {
+    const reserva = await prisma.reserva.findUnique({ where: { id: Number(id) } });
+    if (!reserva) return next(new NotFoundError("Reserva no encontrada."));
+    res.json(reserva);
+  } catch (error) {
+    next(error);
+  }
+};

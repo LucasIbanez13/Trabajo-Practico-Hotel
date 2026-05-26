@@ -1,108 +1,43 @@
 import { prisma } from "../db.js";
+import { ValidationError, NotFoundError } from "../errors/AppError.js";
 
 export const updateReserva = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const { nombre, apellido, dni, telefono, email, habitacion, fechaIngreso, fechaSalida, cantPersonas, estado } = req.body;
 
-    const {
-      nombre,
-      apellido,
-      dni,
-      telefono,
-      email,
-      habitacion,
-      fechaIngreso,
-      fechaSalida,
-      cantPersonas,
-      estado,
-    } = req.body;
+    if (!id || isNaN(id)) return next(new ValidationError("ID inválido."));
 
-    if (!id || isNaN(id)) {
-      return res.status(400).json({
-        message: "ID inválido",
-      });
+    if (!nombre || !apellido || !dni || !telefono || !email || !estado || !fechaIngreso || !fechaSalida) {
+      return next(new ValidationError("Todos los campos son obligatorios."));
     }
 
-    if (
-      !nombre ||
-      !apellido ||
-      !dni ||
-      !telefono ||
-      !email ||
-      !estado ||
-      !fechaIngreso ||
-      !fechaSalida
-    ) {
-      return res.status(400).json({
-        message: "Todos los campos son obligatorios",
-      });
-    }
-
-    const camposString = [
-      nombre,
-      apellido,
-      dni,
-      telefono,
-      email,
-      estado,
-    ];
-
-    const hayCamposVacios = camposString.some(
-      (campo) => typeof campo === "string" && campo.trim() === ""
-    );
-
-    if (hayCamposVacios) {
-      return res.status(400).json({
-        message: "Los campos no pueden estar vacíos",
-      });
+    const camposString = [nombre, apellido, dni, telefono, email, estado];
+    if (camposString.some(campo => typeof campo === "string" && campo.trim() === "")) {
+      return next(new ValidationError("Los campos no pueden estar vacíos."));
     }
 
     const dniNum = Number(dni);
     const habitacionNum = Number(habitacion);
     const cantPersonasNum = Number(cantPersonas);
 
-    if (
-      isNaN(dniNum) ||
-      isNaN(habitacionNum) ||
-      isNaN(cantPersonasNum)
-    ) {
-      return res.status(400).json({
-        message: "DNI, habitación y cantidad de personas deben ser numéricos",
-      });
+    if (isNaN(dniNum) || isNaN(habitacionNum) || isNaN(cantPersonasNum)) {
+      return next(new ValidationError("DNI, habitación y cantidad de personas deben ser numéricos."));
     }
 
-    if (
-      dniNum <= 0 ||
-      habitacionNum <= 0 ||
-      cantPersonasNum <= 0
-    ) {
-      return res.status(400).json({
-        message: "Los valores numéricos deben ser mayores a 0",
-      });
+    if (dniNum <= 0 || habitacionNum <= 0 || cantPersonasNum <= 0) {
+      return next(new ValidationError("Los valores numéricos deben ser mayores a 0."));
     }
 
-    const reservaExistente = await prisma.reserva.findUnique({
-      where: {
-        id: Number(id),
-      },
-    });
-
-    if (!reservaExistente) {
-      return res.status(404).json({
-        message: "Reserva no encontrada",
-      });
-    }
+    const reservaExistente = await prisma.reserva.findUnique({ where: { id: Number(id) } });
+    if (!reservaExistente) return next(new NotFoundError("Reserva no encontrada."));
 
     const reservaActualizada = await prisma.reserva.update({
-      where: {
-        id: Number(id),
-      },
+      where: { id: Number(id) },
       data: {
-        nombre,
-        apellido,
+        nombre, apellido,
         dni: String(dniNum),
-        telefono,
-        email,
+        telefono, email,
         habitacion: habitacionNum,
         fechaIngreso: new Date(fechaIngreso),
         fechaSalida: new Date(fechaSalida),
@@ -112,7 +47,6 @@ export const updateReserva = async (req, res, next) => {
     });
 
     res.status(200).json(reservaActualizada);
-
   } catch (error) {
     next(error);
   }
