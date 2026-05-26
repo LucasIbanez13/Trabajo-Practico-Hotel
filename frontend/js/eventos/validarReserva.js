@@ -1,3 +1,7 @@
+// Logica de validación para el formulario de reserva, no la conecte para no causar conflictos, 
+// pero esta bueno para separar las cosas xd
+// Tambien intenten refactorizar createReserva y editarReserva para que se parezca mas a deleteReserva
+
 const soloLetras = (v) => /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(v);
 const soloNumeros = (v) => /^\d+$/.test(v);
 const emailValido = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
