@@ -39,6 +39,22 @@
         </section>
     </main>
 
+    <!-- Modal Confirmar Eliminación -->
+    <div id="modal-confirmar-eliminar" style="display:none;" class="modal-crear-overlay">
+        <div class="modal-crear" style="max-width:360px;">
+            <div class="modal-crear__header">
+                <h2 class="modal-crear__title">Confirmar eliminación</h2>
+            </div>
+            <p style="font-size:0.85rem; color:var(--color-text-secondary); margin-bottom:1.25rem;">
+                ¿Estás seguro que querés eliminar esta reserva? Esta acción no se puede deshacer.
+            </p>
+            <div class="modal-crear__footer" style="margin-top:0;">
+                <button id="btn-cancelar-eliminar" class="modal-crear__btn-cancelar">Cancelar</button>
+                <button id="btn-confirmar-eliminar" class="modal-crear__btn-guardar" style="background-color:oklch(44.4% 0.177 26.899);">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Crear Reserva -->
     <div id="modal-crear-reserva" style="display:none;" class="modal-crear-overlay">
         <div class="modal-crear">
@@ -91,82 +107,65 @@
         </div>
     </div>
 
-     <!-- Modal Editar Reserva -->
-<div id="modal-editar" style="display:none;" class="modal-crear-overlay">
-    <div class="modal-crear">
-        <div class="modal-crear__header">
-            <h2 class="modal-crear__title">Editar Reserva</h2>
-            <button id="btn-cerrar-modal-editar" class="modal-crear__close">✕</button>
+    <!-- Modal Editar Reserva -->
+    <div id="modal-editar" style="display:none;" class="modal-crear-overlay">
+        <div class="modal-crear">
+            <div class="modal-crear__header">
+                <h2 class="modal-crear__title">Editar Reserva</h2>
+                <button id="btn-cerrar-modal-editar" class="modal-crear__close">✕</button>
+            </div>
+            <form id="form-editar" class="modal-crear__form">
+                <div class="modal-crear__form-group">
+                    <label class="modal-crear__label">Nombre</label>
+                    <input id="edit-nombre" class="modal-crear__input" />
+                </div>
+                <div class="modal-crear__form-group">
+                    <label class="modal-crear__label">Apellido</label>
+                    <input id="edit-apellido" class="modal-crear__input" />
+                </div>
+                <div class="modal-crear__form-group">
+                    <label class="modal-crear__label">DNI</label>
+                    <input id="edit-dni" class="modal-crear__input" />
+                </div>
+                <div class="modal-crear__form-group">
+                    <label class="modal-crear__label">Teléfono</label>
+                    <input id="edit-telefono" class="modal-crear__input" />
+                </div>
+                <div class="modal-crear__form-group">
+                    <label class="modal-crear__label">Email</label>
+                    <input id="edit-email" class="modal-crear__input" />
+                </div>
+                <div class="modal-crear__form-group">
+                    <label class="modal-crear__label">Habitación</label>
+                    <input id="edit-habitacion" type="number" class="modal-crear__input" />
+                </div>
+                <div class="modal-crear__form-group">
+                    <label class="modal-crear__label">Cant. Personas</label>
+                    <input id="edit-cantPersonas" type="number" class="modal-crear__input" />
+                </div>
+                <div class="modal-crear__form-group">
+                    <label class="modal-crear__label">Fecha Ingreso</label>
+                    <input id="edit-fechaIngreso" type="datetime-local" class="modal-crear__input" />
+                </div>
+                <div class="modal-crear__form-group">
+                    <label class="modal-crear__label">Fecha Salida</label>
+                    <input id="edit-fechaSalida" type="datetime-local" class="modal-crear__input" />
+                </div>
+                <div class="modal-crear__form-group">
+                    <label class="modal-crear__label">Estado</label>
+                    <select id="edit-estado" class="modal-crear__input">
+                        <option value="confirmada">Confirmada</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="cancelada">Cancelada</option>
+                    </select>
+                </div>
+                <div class="modal-crear__footer">
+                    <button type="button" id="btn-cancelar-editar" class="modal-crear__btn-cancelar">Cancelar</button>
+                    <button type="submit" class="modal-crear__btn-guardar">Guardar cambios</button>
+                </div>
+            </form>
         </div>
-
-        <form id="form-editar" class="modal-crear__form">
-
-            <div class="modal-crear__form-group">
-                <label class="modal-crear__label">Nombre</label>
-                <input id="edit-nombre" class="modal-crear__input" />
-            </div>
-
-            <div class="modal-crear__form-group">
-                <label class="modal-crear__label">Apellido</label>
-                <input id="edit-apellido" class="modal-crear__input" />
-            </div>
-
-            <div class="modal-crear__form-group">
-                <label class="modal-crear__label">DNI</label>
-                <input id="edit-dni" class="modal-crear__input" />
-            </div>
-
-            <div class="modal-crear__form-group">
-                <label class="modal-crear__label">Teléfono</label>
-                <input id="edit-telefono" class="modal-crear__input" />
-            </div>
-
-            <div class="modal-crear__form-group">
-                <label class="modal-crear__label">Email</label>
-                <input id="edit-email" class="modal-crear__input" />
-            </div>
-
-            <div class="modal-crear__form-group">
-                <label class="modal-crear__label">Habitación</label>
-                <input id="edit-habitacion" type="number" class="modal-crear__input" />
-            </div>
-
-            <div class="modal-crear__form-group">
-                <label class="modal-crear__label">Cant. Personas</label>
-                <input id="edit-cantPersonas" type="number" class="modal-crear__input" />
-            </div>
-
-            <div class="modal-crear__form-group">
-                <label class="modal-crear__label">Fecha Ingreso</label>
-                <input id="edit-fechaIngreso" type="datetime-local" class="modal-crear__input" />
-            </div>
-
-            <div class="modal-crear__form-group">
-                <label class="modal-crear__label">Fecha Salida</label>
-                <input id="edit-fechaSalida" type="datetime-local" class="modal-crear__input" />
-            </div>
-
-            <div class="modal-crear__form-group">
-                <label class="modal-crear__label">Estado</label>
-                <select id="edit-estado" class="modal-crear__input">
-                    <option value="confirmada">Confirmada</option>
-                    <option value="pendiente">Pendiente</option>
-                    <option value="cancelada">Cancelada</option>
-                </select>
-            </div>
-
-            <div class="modal-crear__footer">
-                <button type="button" id="btn-cancelar-editar" class="modal-crear__btn-cancelar">
-                    Cancelar
-                </button>
-                <button type="submit" class="modal-crear__btn-guardar">
-                    Guardar cambios
-                </button>
-            </div>
-
-        </form>
     </div>
-</div>
 
     <script type="module" src="./js/app.js"></script>
 </body>

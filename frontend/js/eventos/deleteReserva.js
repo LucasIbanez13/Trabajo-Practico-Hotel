@@ -2,20 +2,25 @@ import { eliminarReserva, obtenerReservas } from "../api/reservaApi.js";
 import { actualizarReserva } from "../panel/panelReserva.js";
 
 export async function handleEliminarReserva(id) {
-  const confirmar = confirm("¿Eliminar reserva?");
-  if (!confirmar) return;
+  const modal = document.getElementById("modal-confirmar-eliminar");
+  const btnConfirmar = document.getElementById("btn-confirmar-eliminar");
+  const btnCancelar = document.getElementById("btn-cancelar-eliminar");
 
-  try {
-    await eliminarReserva(id);
+  modal.style.display = "flex";
 
-    alert("Reserva eliminada correctamente");
+  btnCancelar.onclick = () => {
+    modal.style.display = "none";
+  };
 
-    const reservasActualizadas = await obtenerReservas();
-
-    actualizarReserva(reservasActualizadas);
-  } catch (error) {
-    console.error(error);
-
-    alert("Error al eliminar reserva");
-  }
+  btnConfirmar.onclick = async () => {
+    modal.style.display = "none";
+    try {
+      await eliminarReserva(id);
+      alert("Reserva eliminada correctamente.");
+      const reservasActualizadas = await obtenerReservas();
+      actualizarReserva(reservasActualizadas);
+    } catch (error) {
+      alert("Error al eliminar la reserva.");
+    }
+  };
 }
