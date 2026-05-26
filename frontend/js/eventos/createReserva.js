@@ -96,6 +96,7 @@ export function initFormCrear() {
       fechaIngreso: document.getElementById("fechaIngreso").value,
       fechaSalida: document.getElementById("fechaSalida").value,
       cantPersonas: document.getElementById("cantPersonas").value,
+      estado: "pendiente",
     };
 
     const esValido = validar(datos);
