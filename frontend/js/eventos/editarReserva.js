@@ -177,7 +177,8 @@ export function initEditarReserva() {
 
       document.getElementById("modal-editar").style.display = "none";
 
-      window.location.reload();
+      const reservasActualizadas = await obtenerReservas();
+      actualizarReserva(reservasActualizadas);
 
     } catch (error) {
       alert(error.message);

@@ -58,6 +58,9 @@ export function initFormCrear() {
 
       alert("Reserva creada!");
       form.reset();
+
+      const reservasActualizadas = await obtenerReservas();
+      actualizarReserva(reservasActualizadas);
     } catch (err) {
       alert(err.message);
     }
