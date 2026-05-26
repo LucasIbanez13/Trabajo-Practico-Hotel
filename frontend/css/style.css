@@ -111,7 +111,7 @@ body {
     font-weight: 600;
 }
 
-.reservas-table__cell--activa {
+.reservas-table__cell--confirmada {
     background-color: var(--color-success-bg);
     color: var(--color-success-text);
 }

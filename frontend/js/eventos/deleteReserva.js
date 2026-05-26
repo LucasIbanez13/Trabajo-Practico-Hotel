@@ -1,30 +1,22 @@
-import { eliminarReserva } from "../api/reservaApi";
+import { eliminarReserva, obtenerReservas } from "../api/reservaApi.js";
 
-export async function eliminarReserva(id) {
+import { actualizarReserva } from "../panel/panelReserva.js";
 
-    try {
+export async function handleEliminarReserva(id) {
+  const confirmar = confirm("¿Eliminar reserva?");
+  if (!confirmar) return;
 
-        const respuesta = await fetch(`${eliminarReserva}/${id}`, {
-            method: "DELETE"
-        });
+  try {
+    await eliminarReserva(id);
 
-        // Verificar si salió bien
-        if (respuesta.ok) {
+    alert("Reserva eliminada correctamente");
 
-            alert("Reserva eliminada correctamente");
+    const reservasActualizadas = await obtenerReservas();
 
-            // Recargar reservas
-            location.reload();
+    actualizarReserva(reservasActualizadas);
+  } catch (error) {
+    console.error(error);
 
-        } else {
-
-            alert("No se pudo eliminar la reserva");
-        }
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert("Error del servidor");
-    }
+    alert("Error al eliminar reserva");
+  }
 }
