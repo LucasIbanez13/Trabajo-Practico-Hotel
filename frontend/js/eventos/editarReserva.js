@@ -69,21 +69,22 @@ function validarFormulario() {
   if (!dni) {
     setError("edit-dni", "El DNI es obligatorio");
     valido = false;
-  } else if (!soloNumeros(dni)) {
-    setError("edit-dni", "Solo números");
+  } else if (!/^\d{7,8}$/.test(dni)) {
+    setError("edit-dni", "El DNI debe tener 7 u 8 números sin puntos ni espacios.");
     valido = false;
-  } else if (dni.length !== 8) {
-    setError("edit-dni", "Debe tener 8 dígitos");
-    valido = false;
-  } else clearError("edit-dni");
+  } else {
+    clearError("edit-dni");
+  }
 
   if (!telefono) {
     setError("edit-telefono", "Obligatorio");
     valido = false;
-  } else if (!soloNumeros(telefono)) {
-    setError("edit-telefono", "Solo números");
+  } else if (!/^\d{7,15}$/.test(telefono)) {
+    setError("edit-telefono", "El teléfono debe tener entre 7 y 15 números.");
     valido = false;
-  } else clearError("edit-telefono");
+  } else {
+    clearError("edit-telefono");
+  }
 
   if (!email) {
     setError("edit-email", "Obligatorio");
@@ -116,7 +117,6 @@ function validarFormulario() {
   return valido;
 }
 
-
 export function abrirModalEditar(reserva) {
   reservaEditandoId = reserva.id;
 
@@ -137,7 +137,6 @@ export function abrirModalEditar(reserva) {
 
   document.getElementById("modal-editar").style.display = "flex";
 }
-
 
 export function initEditarReserva() {
   const form = document.getElementById("form-editar");
