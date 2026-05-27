@@ -1,5 +1,6 @@
 import { eliminarReserva, obtenerReservas } from "../api/reservaApi.js";
 import { actualizarReserva } from "../panel/panelReserva.js";
+import { toastSuccess, toastError } from "../utils/toast.js";
 
 export async function handleEliminarReserva(id) {
   const modal = document.getElementById("modal-confirmar-eliminar");
@@ -16,11 +17,11 @@ export async function handleEliminarReserva(id) {
     modal.style.display = "none";
     try {
       await eliminarReserva(id);
-      alert("Reserva eliminada correctamente.");
+      toastSuccess("Reserva eliminada correctamente."); // antes: alert(...)
       const reservasActualizadas = await obtenerReservas();
       actualizarReserva(reservasActualizadas);
     } catch (error) {
-      alert("Error al eliminar la reserva.");
+      toastError("Error al eliminar la reserva."); // antes: alert(...)
     }
   };
 }

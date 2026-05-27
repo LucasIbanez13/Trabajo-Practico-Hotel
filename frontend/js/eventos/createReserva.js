@@ -1,12 +1,12 @@
 import { crearReserva, obtenerReservas } from "../api/reservaApi.js";
 import { actualizarReserva } from "../panel/panelReserva.js";
+import { toastSuccess, toastError } from "../utils/toast.js";
 
 const validar = (datos) => {
   const { nombre, apellido, dni, telefono, email, habitacion, fechaIngreso, fechaSalida, cantPersonas } = datos;
 
-  if (!nombre || !apellido || !dni || !telefono || !email || !habitacion || !fechaIngreso || !fechaSalida || !cantPersonas) {
+  if (!nombre || !apellido || !dni || !telefono || !email || !habitacion || !fechaIngreso || !fechaSalida || !cantPersonas)
     return "Completá todos los campos.";
-  }
 
   if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre)) return "El nombre solo puede contener letras.";
   if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(apellido)) return "El apellido solo puede contener letras.";
@@ -40,11 +40,12 @@ export function initFormCrear() {
       fechaIngreso: document.getElementById("fechaIngreso").value,
       fechaSalida: document.getElementById("fechaSalida").value,
       cantPersonas: document.getElementById("cantPersonas").value,
+      estado: "pendiente", // valor por defecto al crear
     };
 
     const error = validar(datos);
     if (error) {
-      alert(error);
+      toastError(error);
       return;
     }
 
@@ -55,15 +56,18 @@ export function initFormCrear() {
         fechaIngreso: new Date(datos.fechaIngreso).toISOString(),
         fechaSalida: new Date(datos.fechaSalida).toISOString(),
         cantPersonas: Number(datos.cantPersonas),
+        estado: "pendiente",
       });
 
-      alert("Reserva creada!");
+      document.getElementById("modal-crear-reserva").style.display = "none";
       form.reset();
+
+      toastSuccess("Reserva creada exitosamente.");
 
       const reservasActualizadas = await obtenerReservas();
       actualizarReserva(reservasActualizadas);
     } catch (err) {
-      alert(err.message);
+      toastError(err.message);
     }
   });
 }
