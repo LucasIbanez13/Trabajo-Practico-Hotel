@@ -47,6 +47,7 @@ export const updateReserva = async (req, res, next) => {
     });
 
     res.status(200).json(reservaActualizada);
+    
   } catch (error) {
     next(error);
   }
