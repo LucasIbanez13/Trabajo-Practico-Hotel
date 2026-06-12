@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import generateToken from "../auth/signToken.js";
 import { AppError } from "../errors/AppError.js";
+import bcrypt from "bcrypt"; 
 
 const prisma = new PrismaClient();
 
@@ -16,8 +17,7 @@ export const login = async (req, res, next) => {
             throw new AppError("Credenciales incorrectas", 401);
         }
 
-        // cuando el otro agregue bcrypt reemplazás esta línea
-        const passwordValida = password === usuario.password;
+        const passwordValida = await bcrypt.compare(password, usuario.password);
 
         if (!passwordValida) {
             throw new AppError("Credenciales incorrectas", 401);
