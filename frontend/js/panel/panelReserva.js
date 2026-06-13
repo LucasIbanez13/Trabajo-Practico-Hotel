@@ -6,6 +6,18 @@ export function actualizarReserva(reservas) {
   const tbody = document.getElementById("tabla-reservas");
   tbody.innerHTML = "";
 
+  if (reservas.length === 0) {
+    const tr = document.createElement("tr");
+    tr.classList.add("reservas-table__row");
+    tr.innerHTML = `
+      <td class="reservas-table__cell" colspan="11">
+        No hay reservas registradas
+      </td>
+    `;
+    tbody.appendChild(tr);
+    return;
+  }
+
   reservas.forEach(reserva => {
 
     const tr = document.createElement("tr");
