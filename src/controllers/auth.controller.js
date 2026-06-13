@@ -39,3 +39,48 @@ export const login = async (req, res, next) => {
         next(error);
     }
 };
+
+
+export const register = async (req, res, next) => {
+  const { nombre, email, password } = req.body;
+
+  try {
+    // Verificar si el email ya existe
+    const usuarioExistente = await prisma.usuario.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (usuarioExistente) {
+      return res.status(409).json({
+        mensaje: "El email ya está registrado",
+      });
+    }
+
+    // Encriptar contraseña
+    const passwordHash = await bcrypt.hash(password, 10);
+
+    // Crear usuario
+    const nuevoUsuario = await prisma.usuario.create({
+      data: {
+        nombre,
+        email,
+        password: passwordHash,
+      },
+    });
+
+    // No devolver la contraseña
+    res.status(201).json({
+      mensaje: "Usuario creado correctamente",
+      usuario: {
+        id: nuevoUsuario.id,
+        nombre: nuevoUsuario.nombre,
+        email: nuevoUsuario.email,
+      },
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
