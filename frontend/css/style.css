@@ -31,6 +31,12 @@ body {
   flex-direction: column;
 }
 
+.body--index{
+    background: url("https://file.garden/aib4DHVVMy1rC_mN/Hotel-Practico/hotel");
+    background-size: cover;
+    background-position: center;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
