@@ -1,4 +1,4 @@
-function getElements() {
+export function getElements() {
     return {
         headerTitle: document.querySelector(".header__title"),
         loginForm: document.getElementById("form-login"),
@@ -8,7 +8,7 @@ function getElements() {
     };
 }
 
-function toggleForms({ headerTitle, loginForm, registerForm, switchButton, switchText }) {
+export function toggleForms({ headerTitle, loginForm, registerForm, switchButton, switchText }) {
     loginForm.classList.toggle("hidden");
     registerForm.classList.toggle("hidden");
 

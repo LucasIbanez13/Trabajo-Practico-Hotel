@@ -10,18 +10,16 @@
   <body>
     <main>
       <section class="form-section" id="form-section">
-        <!-- ahi hice los dos forms, de login y de registrar. 
-         El de registrar esta oculto con css. Despues dinamicamente hay que mostrar uno u otro -->
         <div class="form-container">
                 <h1 class="header__title header_title--auth">Inicio de Sesión</h1>
           <form id="form-login" class="crear__form">
             <div class="crear__form-group">
               <label class="crear__label">Email</label>
-              <input id="email" class="crear__input" />
+              <input id="email-login" class="crear__input" />
             </div>
             <div class="crear__form-group">
               <label class="crear__label">Contraseña</label>
-              <input id="password" type="password" class="crear__input" />
+              <input id="password-login" type="password" class="crear__input" />
             </div>
             <button id="btn-login" class="crear__btn-guardar">Iniciar Sesión</button>
           </form>
@@ -29,15 +27,15 @@
           <form id="form-register" class="crear__form hidden">
             <div class="crear__form-group">
               <label class="crear__label">Nombre</label>
-              <input id="name" class="crear__input" />
+              <input id="name-register" class="crear__input" />
             </div>
             <div class="crear__form-group">
               <label class="crear__label">Email</label>
-              <input id="email" class="crear__input" />
+              <input id="email-register" class="crear__input" />
             </div>
             <div class="crear__form-group">
               <label class="crear__label">Contraseña</label>
-              <input id="password" type="password" class="crear__input" />
+              <input id="password-register" type="password" class="crear__input" />
             </div>
             <button id="btn-register" class="crear__btn-guardar">Registrarme</button>
           </form>
