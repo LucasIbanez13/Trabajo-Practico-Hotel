@@ -19,7 +19,7 @@ export async function handleLogin(e) {
     const data = await login({ email, password });
     localStorage.setItem("token", data.token);
     toastSuccess("Login exitoso.");
-    window.location.href = "./index.html";
+    window.location.href = "./dashboard.html";
   } catch (error) {
     toastError(error.message || "Error al iniciar sesión.");
   }

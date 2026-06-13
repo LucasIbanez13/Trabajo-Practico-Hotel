@@ -54,16 +54,21 @@ body {
     border-radius: 999px;
     background-color: var(--color-surface);
     border: 1px solid var(--border);
-    box-shadow: var(--shadow);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
     padding: 0.5rem 0.75rem;
-    font-size: 0.9rem;
-    color: var(--color-text-primary);
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.15s;
+    transition: transform 0.2s;
+}
+
+.header__btn-user:hover {
+    transform: translateY(-1.5px);
 }
 
 .form-container {
-  max-width: 35rem;
+  max-width: 30rem;
   margin: auto;
 }
 
