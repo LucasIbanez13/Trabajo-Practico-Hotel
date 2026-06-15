@@ -1,7 +1,9 @@
 import { Router } from "express";
 import validateToken from "../auth/verifyToken.js";
 import { checkRole } from "../middlewares/checkRole.js";
-import { getUsuarios, editarUsuario, eliminarUsuario } from "../controllers/user/usuarios.controller.js";
+import { getUsuarios} from "../controllers/user/usuarios.controller.js";
+import { editarUsuario } from "../controllers/user/usuariosUpdate.controller.js";
+import { eliminarUsuario } from "../controllers/user/usuariosDelete.controller.js";
 
 const router = Router();
 
