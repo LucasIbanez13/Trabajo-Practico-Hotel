@@ -10,9 +10,11 @@ const validateToken = (req, res, next) => {
 
     try {
         const payload = jwt.verify(token, process.env.JWT_SECRET);
-        req.id = payload.id;
-        req.email = payload.email;
-        req.rol = payload.rol;
+        req.user = {
+            id: payload.id,
+            email: payload.email,
+            rol: payload.rol,
+        };
     } catch (error) {
         return res.status(401).json({ message: 'Token no válido' });
     }

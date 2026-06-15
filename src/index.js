@@ -4,6 +4,7 @@ import cors from "cors";
 import reservasRoutes from "./routes/reservas.routes.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import authRoutes from "./routes/auth.routes.js";
+import usuariosRoutes from "./routes/usuarios.routes.js";
 
 
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(express.static("frontend"));
 app.use("/api", reservasRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api", usuariosRoutes);
 
 
 app.use(errorHandler);
