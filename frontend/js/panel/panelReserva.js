@@ -121,7 +121,6 @@ function initBotonNuevaReserva() {
 
 
 export async function initPanel() {
-
   try {
     const reservas = await obtenerReservas();
 
