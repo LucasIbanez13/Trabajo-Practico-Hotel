@@ -1,4 +1,6 @@
-import { crearReserva } from "../api/reservaApi.js";
+import { crearReserva, obtenerReservas } from "../api/reservaApi.js";
+import { actualizarReserva } from "../panel/panelReserva.js";
+import { toastSuccess, toastError } from "../utils/toast.js";
 
 function setError(id, mensaje) {
   const input = document.getElementById(id);
@@ -109,13 +111,18 @@ export function initFormCrear() {
         fechaIngreso: new Date(datos.fechaIngreso).toISOString(),
         fechaSalida: new Date(datos.fechaSalida).toISOString(),
         cantPersonas: Number(datos.cantPersonas),
+        estado: "pendiente",
       });
 
-      alert("Reserva creada correctamente!");
+      document.getElementById("modal-crear-reserva").style.display = "none";
       form.reset();
 
+      toastSuccess("Reserva creada exitosamente.");
+
+      const reservasActualizadas = await obtenerReservas();
+      actualizarReserva(reservasActualizadas);
     } catch (err) {
-      alert(err.message);
+      toastError(err.message);
     }
   });
 }

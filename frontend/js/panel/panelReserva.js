@@ -1,10 +1,22 @@
-import { obtenerReservas, eliminarReserva } from "../api/reservaApi.js";
+import { obtenerReservas } from "../api/reservaApi.js";
 import { abrirModalEditar } from "../eventos/editarReserva.js";
+import { handleEliminarReserva } from "../eventos/deleteReserva.js";
 
-function actualizarReserva(reservas) {
-
+export function actualizarReserva(reservas) {
   const tbody = document.getElementById("tabla-reservas");
   tbody.innerHTML = "";
+
+  if (reservas.length === 0) {
+    const tr = document.createElement("tr");
+    tr.classList.add("reservas-table__row");
+    tr.innerHTML = `
+      <td class="reservas-table__cell" colspan="11">
+        No hay reservas registradas
+      </td>
+    `;
+    tbody.appendChild(tr);
+    return;
+  }
 
   reservas.forEach(reserva => {
 
@@ -76,25 +88,8 @@ function initBotonesEliminar() {
   botones.forEach((boton) => {
 
     boton.addEventListener("click", async () => {
-
       const id = boton.dataset.id;
-
-      const confirmar = confirm("¿Eliminar reserva?");
-      if (!confirmar) return;
-
-      try {
-        await eliminarReserva(id);
-
-        alert("Reserva eliminada correctamente");
-
-        const reservasActualizadas = await obtenerReservas();
-        actualizarReserva(reservasActualizadas);
-
-      } catch (error) {
-        console.error(error);
-        alert("Error al eliminar reserva");
-      }
-
+      await handleEliminarReserva(id);
     });
 
   });

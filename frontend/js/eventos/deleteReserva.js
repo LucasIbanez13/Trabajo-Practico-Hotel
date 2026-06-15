@@ -1,30 +1,27 @@
-import { eliminarReserva } from "../api/reservaApi";
+import { eliminarReserva, obtenerReservas } from "../api/reservaApi.js";
+import { actualizarReserva } from "../panel/panelReserva.js";
+import { toastSuccess, toastError } from "../utils/toast.js";
 
-export async function eliminarReserva(id) {
+export async function handleEliminarReserva(id) {
+  const modal = document.getElementById("modal-confirmar-eliminar");
+  const btnConfirmar = document.getElementById("btn-confirmar-eliminar");
+  const btnCancelar = document.getElementById("btn-cancelar-eliminar");
 
+  modal.style.display = "flex";
+
+  btnCancelar.onclick = () => {
+    modal.style.display = "none";
+  };
+
+  btnConfirmar.onclick = async () => {
+    modal.style.display = "none";
     try {
-
-        const respuesta = await fetch(`${eliminarReserva}/${id}`, {
-            method: "DELETE"
-        });
-
-        // Verificar si salió bien
-        if (respuesta.ok) {
-
-            alert("Reserva eliminada correctamente");
-
-            // Recargar reservas
-            location.reload();
-
-        } else {
-
-            alert("No se pudo eliminar la reserva");
-        }
-
+      await eliminarReserva(id);
+      toastSuccess("Reserva eliminada correctamente."); // antes: alert(...)
+      const reservasActualizadas = await obtenerReservas();
+      actualizarReserva(reservasActualizadas);
     } catch (error) {
-
-        console.error(error);
-
-        alert("Error del servidor");
+      toastError("Error al eliminar la reserva."); // antes: alert(...)
     }
+  };
 }

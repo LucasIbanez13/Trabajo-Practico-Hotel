@@ -5,18 +5,18 @@ export const createReserva = async (req, res, next) => {
   try {
     const { nombre, apellido, dni, telefono, email, habitacion, fechaIngreso, fechaSalida, cantPersonas, estado } = req.body;
 
-    // Campos obligatorios
-    if (!nombre || !apellido || !dni || !telefono || !email || !estado || !fechaIngreso || !fechaSalida) {
+    // 400 - Campos obligatorios
+    if (!nombre || !apellido || !dni || !telefono || !email || !habitacion || !fechaIngreso || !fechaSalida || !cantPersonas || !estado) {
       return next(new ValidationError("Todos los campos son obligatorios."));
     }
 
-    // Campos string no vacíos
+    // 400 - Campos de texto vacíos
     const camposString = [nombre, apellido, dni, telefono, email, estado];
-    if (camposString.some(campo => typeof campo === "string" && campo.trim() === "")) {
-      return next(new ValidationError("Los campos no pueden estar vacíos."));
+    if (camposString.some((campo) => typeof campo === "string" && campo.trim() === "")) {
+      return next(new ValidationError("Los campos de texto no pueden estar vacíos."));
     }
 
-    // Validación numérica
+    // 400 - Validación numérica
     const dniNum = Number(dni);
     const habitacionNum = Number(habitacion);
     const cantPersonasNum = Number(cantPersonas);
@@ -42,11 +42,13 @@ export const createReserva = async (req, res, next) => {
       },
     });
 
+    // 201 - Creado exitosamente
     res.status(201).json(reserva);
   } catch (error) {
+    // 400 - DNI duplicado
     if (error.code === "P2002") {
       return next(new ValidationError("Ya existe una reserva con ese DNI."));
     }
-    next(error);
+    next(error); // -> errorHandler -> 500
   }
 };
