@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+ 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Usuarios</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+ 
+<body>
+  <header class="header">
+    <h1 class="header__title">Panel de Usuarios</h1>
+    <div style="display:flex; gap:0.5rem; align-items:center;">
+      <a href="./dashboard.html" class="header__btn-user">← Reservas</a>
+      <a href="./index.html" id="btn-logout" class="header__btn-user">Cerrar Sesión</a>
+    </div>
+  </header>
+ 
+  <main class="main">
+    <section class="panel" id="panel">
+      <div class="table-container">
+        <table class="reservas-table">
+          <thead class="reservas-table__head">
+            <tr class="reservas-table__row reservas-table__row--header">
+              <th class="reservas-table__heading">ID</th>
+              <th class="reservas-table__heading">Nombre</th>
+              <th class="reservas-table__heading">Email</th>
+              <th class="reservas-table__heading">Rol</th>
+              <th class="reservas-table__heading">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="reservas-table__body" id="tabla-usuarios"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+ 
+  <!-- Modal Confirmar Eliminación -->
+  <div id="modal-confirmar-eliminar-usuario" style="display:none;" class="modal-crear-overlay">
+    <div class="modal-crear" style="max-width:360px;">
+      <div class="modal-crear__header">
+        <h2 class="modal-crear__title">Confirmar eliminación</h2>
+      </div>
+      <p style="font-size:0.85rem; color:var(--color-text-secondary); margin-bottom:1.25rem;">
+        ¿Estás seguro que querés eliminar este usuario? Esta acción no se puede deshacer.
+      </p>
+      <div class="modal-crear__footer" style="margin-top:0;">
+        <button id="btn-cancelar-eliminar-usuario" class="modal-crear__btn-cancelar">Cancelar</button>
+        <button id="btn-confirmar-eliminar-usuario" class="modal-crear__btn-guardar"
+          style="background-color:oklch(44.4% 0.177 26.899);">Eliminar</button>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Modal Editar Usuario (solo nombre y email) -->
+  <div id="modal-editar-usuario" style="display:none;" class="modal-crear-overlay">
+    <div class="modal-crear">
+      <div class="modal-crear__header">
+        <h2 class="modal-crear__title">Editar Usuario</h2>
+        <button id="btn-cerrar-modal-editar-usuario" class="modal-crear__close">✕</button>
+      </div>
+      <form id="form-editar-usuario" class="modal-crear__form" style="grid-template-columns:1fr;">
+        <div class="modal-crear__form-group">
+          <label class="modal-crear__label">Nombre</label>
+          <input id="edit-usuario-nombre" class="modal-crear__input" placeholder="Juan Pérez" />
+        </div>
+        <div class="modal-crear__form-group">
+          <label class="modal-crear__label">Email</label>
+          <input id="edit-usuario-email" type="email" class="modal-crear__input" placeholder="juan@email.com" />
+        </div>
+        <div class="modal-crear__footer" style="margin-top:0.5rem;">
+          <button type="button" id="btn-cancelar-editar-usuario" class="modal-crear__btn-cancelar">Cancelar</button>
+          <button type="submit" class="modal-crear__btn-guardar">Guardar cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+ 
+  <script type="module" src="./js/usuariosApp.js"></script>
+</body>
+ 
+</html>

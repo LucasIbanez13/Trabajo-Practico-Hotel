@@ -571,3 +571,31 @@ body {
   align-items: center;
   z-index: 50;
 }
+
+
+/* ── Agregar al final de style.css ── */
+
+/* Badges de rol de usuario */
+.usuario-rol {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  text-transform: capitalize;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.usuario-rol--superadmin {
+  background-color: oklch(91% 0.06 280);
+  color: oklch(35% 0.18 280);
+}
+
+.usuario-rol--admin {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning-text);
+}
+
+.usuario-rol--empleado {
+  background-color: var(--color-surface-alt);
+  color: var(--color-text-muted);
+}
