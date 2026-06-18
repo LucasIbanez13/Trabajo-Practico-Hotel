@@ -47,3 +47,18 @@ export async function eliminarUsuario(id) {
     throw new Error(result.message || "Error al eliminar el usuario");
   }
 }
+export async function cambiarPasswordUsuario(id, password) {
+  const res = await fetch(`http://localhost:3000/api/usuarios/${id}/password`, {
+    method: "PUT",
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ password }),
+  });
+
+  const result = await res.json();
+
+  if (!res.ok) {
+    throw new Error(result.message || "Error al cambiar la contraseña");
+  }
+
+  return result;
+}

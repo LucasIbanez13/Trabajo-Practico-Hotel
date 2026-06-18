@@ -52,7 +52,25 @@
       </div>
     </div>
   </div>
- 
+ <!-- Modal Cambiar Contraseña -->
+<div id="modal-cambiar-password" style="display:none;" class="modal-crear-overlay">
+    <div class="modal-crear" style="max-width:360px;">
+        <div class="modal-crear__header">
+            <h2 class="modal-crear__title">Cambiar contraseña</h2>
+            <button id="btn-cerrar-modal-password" class="modal-crear__close">✕</button>
+        </div>
+        <form id="form-cambiar-password" class="modal-crear__form">
+            <div class="modal-crear__form-group modal-crear__form-group--full">
+                <label class="modal-crear__label">Nueva contraseña</label>
+                <input id="nueva-password" type="password" class="modal-crear__input" placeholder="Mínimo 6 caracteres" />
+            </div>
+            <div class="modal-crear__footer">
+                <button type="button" id="btn-cancelar-password" class="modal-crear__btn-cancelar">Cancelar</button>
+                <button type="submit" class="modal-crear__btn-guardar">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
   <!-- Modal Editar Usuario (solo nombre y email) -->
   <div id="modal-editar-usuario" style="display:none;" class="modal-crear-overlay">
     <div class="modal-crear">
