@@ -1,6 +1,7 @@
 import { obtenerUsuarios } from "../api/usuarioApi.js";
 import { abrirModalEditarUsuario } from "../eventos/editarUsuario.js";
 import { handleEliminarUsuario } from "../eventos/deleteUsuario.js";
+import { abrirModalPassword } from "../eventos/cambiarPassword.js";
 
 function getIdFromToken() {
   const token = localStorage.getItem("token");
@@ -50,6 +51,9 @@ export function actualizarTablaUsuarios(usuarios) {
           <button class="btn-action btn-action--edit" data-id="${usuario.id}">
             Editar
           </button>
+          <button class="btn-action btn-action--password" data-id="${usuario.id}">
+            Contraseña
+          </button>
           ${!esMiCuenta ? `
           <button class="btn-action btn-action--delete" data-id="${usuario.id}">
             Eliminar
@@ -66,7 +70,9 @@ export function actualizarTablaUsuarios(usuarios) {
     tr.querySelector(".btn-action--edit").addEventListener("click", () => {
       abrirModalEditarUsuario(usuario);
     });
-
+tr.querySelector(".btn-action--password").addEventListener("click", () => {
+      abrirModalPassword(usuario.id);
+    });
     if (!esMiCuenta) {
       tr.querySelector(".btn-action--delete").addEventListener("click", async () => {
         await handleEliminarUsuario(usuario.id);
