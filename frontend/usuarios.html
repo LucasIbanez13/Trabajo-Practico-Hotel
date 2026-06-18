@@ -52,26 +52,28 @@
       </div>
     </div>
   </div>
- <!-- Modal Cambiar Contraseña -->
-<div id="modal-cambiar-password" style="display:none;" class="modal-crear-overlay">
+
+  <!-- Modal Cambiar Contraseña -->
+  <div id="modal-cambiar-password" style="display:none;" class="modal-crear-overlay">
     <div class="modal-crear" style="max-width:360px;">
-        <div class="modal-crear__header">
-            <h2 class="modal-crear__title">Cambiar contraseña</h2>
-            <button id="btn-cerrar-modal-password" class="modal-crear__close">✕</button>
+      <div class="modal-crear__header">
+        <h2 class="modal-crear__title">Cambiar contraseña</h2>
+        <button id="btn-cerrar-modal-password" class="modal-crear__close">✕</button>
+      </div>
+      <form id="form-cambiar-password" class="modal-crear__form">
+        <div class="modal-crear__form-group modal-crear__form-group--full">
+          <label class="modal-crear__label">Nueva contraseña</label>
+          <input id="nueva-password" type="password" class="modal-crear__input" placeholder="Mínimo 6 caracteres" />
         </div>
-        <form id="form-cambiar-password" class="modal-crear__form">
-            <div class="modal-crear__form-group modal-crear__form-group--full">
-                <label class="modal-crear__label">Nueva contraseña</label>
-                <input id="nueva-password" type="password" class="modal-crear__input" placeholder="Mínimo 6 caracteres" />
-            </div>
-            <div class="modal-crear__footer">
-                <button type="button" id="btn-cancelar-password" class="modal-crear__btn-cancelar">Cancelar</button>
-                <button type="submit" class="modal-crear__btn-guardar">Guardar</button>
-            </div>
-        </form>
+        <div class="modal-crear__footer">
+          <button type="button" id="btn-cancelar-password" class="modal-crear__btn-cancelar">Cancelar</button>
+          <button type="submit" class="modal-crear__btn-guardar">Guardar</button>
+        </div>
+      </form>
     </div>
-</div>
-  <!-- Modal Editar Usuario (solo nombre y email) -->
+  </div>
+
+  <!-- Modal Editar Usuario -->
   <div id="modal-editar-usuario" style="display:none;" class="modal-crear-overlay">
     <div class="modal-crear">
       <div class="modal-crear__header">
@@ -86,6 +88,14 @@
         <div class="modal-crear__form-group">
           <label class="modal-crear__label">Email</label>
           <input id="edit-usuario-email" type="email" class="modal-crear__input" placeholder="juan@email.com" />
+        </div>
+        <!-- Campo rol: se muestra/oculta desde JS según si es su propia cuenta -->
+        <div class="modal-crear__form-group" id="grupo-rol-usuario">
+          <label class="modal-crear__label">Rol</label>
+          <select id="edit-usuario-rol" class="modal-crear__input">
+            <option value="admin">Admin</option>
+            <option value="superadmin">Superadmin</option>
+          </select>
         </div>
         <div class="modal-crear__footer" style="margin-top:0.5rem;">
           <button type="button" id="btn-cancelar-editar-usuario" class="modal-crear__btn-cancelar">Cancelar</button>

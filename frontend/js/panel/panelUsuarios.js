@@ -1,10 +1,21 @@
 import { obtenerUsuarios } from "../api/usuarioApi.js";
 import { abrirModalEditarUsuario } from "../eventos/editarUsuario.js";
 import { handleEliminarUsuario } from "../eventos/deleteUsuario.js";
-import { abrirModalPassword } from "../eventos/cambiarPassword.js";
+
+function getIdFromToken() {
+  const token = localStorage.getItem("token");
+  if (!token) return null;
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload.id;
+  } catch {
+    return null;
+  }
+}
 
 export function actualizarTablaUsuarios(usuarios) {
   const tbody = document.getElementById("tabla-usuarios");
+  const miId = getIdFromToken();
   tbody.innerHTML = "";
 
   if (!usuarios || usuarios.length === 0) {
@@ -20,6 +31,8 @@ export function actualizarTablaUsuarios(usuarios) {
   }
 
   usuarios.forEach((usuario) => {
+    const esMiCuenta = usuario.id === miId;
+
     const tr = document.createElement("tr");
     tr.classList.add("reservas-table__row");
 
@@ -37,12 +50,13 @@ export function actualizarTablaUsuarios(usuarios) {
           <button class="btn-action btn-action--edit" data-id="${usuario.id}">
             Editar
           </button>
-          <button class="btn-action btn-action--password" data-id="${usuario.id}">
-            Contraseña
-          </button>
+          ${!esMiCuenta ? `
           <button class="btn-action btn-action--delete" data-id="${usuario.id}">
             Eliminar
-          </button>
+          </button>` : `
+          <span style="font-size:0.75rem; color:var(--color-text-muted); padding: 0.3rem 0.75rem;">
+            Tu cuenta
+          </span>`}
         </div>
       </td>
     `;
@@ -53,13 +67,11 @@ export function actualizarTablaUsuarios(usuarios) {
       abrirModalEditarUsuario(usuario);
     });
 
-    tr.querySelector(".btn-action--password").addEventListener("click", () => {
-      abrirModalPassword(usuario.id);
-    });
-
-    tr.querySelector(".btn-action--delete").addEventListener("click", async () => {
-      await handleEliminarUsuario(usuario.id);
-    });
+    if (!esMiCuenta) {
+      tr.querySelector(".btn-action--delete").addEventListener("click", async () => {
+        await handleEliminarUsuario(usuario.id);
+      });
+    }
   });
 }
 
