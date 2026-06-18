@@ -56,13 +56,18 @@ Crear un archivo `.env` en la raíz del proyecto con el siguiente contenido, ree
 
 ```env
 DATABASE_URL="mysql://USUARIO:CONTRASEÑA@localhost:3306/NOMBRE_BASE_DE_DATOS"
+JWT_SECRET="TU_CLAVE_SECRETA"
 ```
 
-Ejemplo:
+#### Ejemplo
 
 ```env
 DATABASE_URL="mysql://root:admin123@localhost:3306/hotel_db"
+JWT_SECRET="mi_clave_super_secreta_123"
 ```
+
+> **Importante:** `JWT_SECRET` es una clave secreta utilizada para la generación y validación de tokens JWT. Debe ser una cadena segura y única. No compartas esta clave ni la subas al repositorio.
+
 
 ### 4. Generar el cliente de Prisma
 
